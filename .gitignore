@@ -1,0 +1,6 @@
+virtual/
+.env
+*.pyc
+.vscode/
+staticfiles/
+media/
