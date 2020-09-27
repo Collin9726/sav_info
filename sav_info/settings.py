@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'apps.authentication',
+    'apps.orders',
+    'drf_yasg',
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -97,6 +99,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sav_info.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apps.authentication.jwt.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
 
 
 # Password validation
