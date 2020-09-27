@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .models import Order, User
 from .serializers import OrderSerializer, CustomerSerializer
+from .sms import SendSMS
 
 # Create your views here.
 class CustomersView(APIView):
@@ -151,8 +152,11 @@ class MakeOrderView(APIView):
     def post(self, request, format=None):        
         serializers = OrderSerializer(data=request.data, partial=True)
         customer = request.user
-        if serializers.is_valid():            
+        if serializers.is_valid():  
+            order_item = serializers.validated_data['item']
+            order_amount = serializers.validated_data['amount']          
             serializers.save(customer=customer)
+            SendSMS(customer.first_name, customer.phone_number, order_item, order_amount)
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
