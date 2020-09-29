@@ -1,1 +1,1 @@
-web: gunicorn savinfo.wsgi --log-file -
+web: gunicorn sav_info.wsgi --log-file -
