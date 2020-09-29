@@ -31,6 +31,18 @@ if config('MODE')=="dev":
        }
        
    }
+#test
+elif config('MODE')=="testing":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': '',
+           'HOST': '',
+           'PORT': '',
+       }
+   }
 # production
 else:
    DATABASES = {

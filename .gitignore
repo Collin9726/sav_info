@@ -4,3 +4,4 @@ virtual/
 .vscode/
 staticfiles/
 media/
+.coverage
