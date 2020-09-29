@@ -1,0 +1,29 @@
+language: python
+
+# Supported Python versions
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+env:
+  - DJANGO_SETTINGS_MODULE="sav_info.settings"
+  
+# Install dependencies
+install:
+  - pip3 install -r requirements.txt
+  - pip install coveralls
+
+before_script:
+ - psql -c "CREATE DATABASE savinfo;" -U postgres 
+
+# Run tests
+script:
+  - python manage.py migrate
+  - coverage run --source=apps manage.py test
+  - coverage report
+
+# Generate coverage report
+after_success:
+  - coveralls

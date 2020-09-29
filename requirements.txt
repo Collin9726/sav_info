@@ -5,6 +5,7 @@ chardet==3.0.4
 contextlib2==0.6.0.post1
 coreapi==2.3.3
 coreschema==0.0.4
+coverage==5.3
 dj-database-url==0.5.0
 Django==3.1.1
 django-heroku==0.3.1
@@ -20,8 +21,10 @@ packaging==20.4
 psycopg2==2.8.6
 PyJWT==1.7.1
 pyparsing==2.4.7
+python-coveralls==2.9.3
 python-decouple==3.3
 pytz==2020.1
+PyYAML==5.3.1
 requests==2.24.0
 ruamel.yaml==0.16.12
 ruamel.yaml.clib==0.2.2
