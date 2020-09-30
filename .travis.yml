@@ -1,0 +1,30 @@
+language: python
+python:
+- '3.6'
+services:
+- postgresql
+env:
+- DJANGO_SETTINGS_MODULE="sav_info.settings"
+install:
+- pip3 install -r requirements.txt
+- pip install coveralls
+before_script:
+- psql -c "CREATE DATABASE savinfo;" -U postgres
+script:
+- python manage.py migrate
+- coverage run --source=apps manage.py test
+- coverage report
+after_success:
+- coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: XVGaUrRh3K+GulAt4g64c35UmWBWPzt7Hkc+PBLfa0koD+WSChF6WL3+lmVw07XgeSY0QGFhQ4N0ji+wjdx5Sgc44eIIv9xZQ7DMWgeGhlPnC6Zcp48WU7CiSefdqgBniKoIU1Mf4E10F1IiIUFpKANOOGzYP8ObDJJe2ltmnFS6m5fcOkz2kXDGFpHS25gUtdlzCe31w5JR+KxTdgGq1CdYdesHN9O8tXOJmhbyW4Shpo5vbuRvb259FiLkME5feG6R638VJpzxQCnaPOTZPkdiH3ouQTmjT1KR2gIcn/CFTu/KdgucFB3XEwXX1wSHttfVwKMbAjlVJTqjwqVboNtggG3E9wI/fU6KPWy4i9JqogMCkRAhQIuHfNEnuVdAss0ZNG2IBW3A4NJgeTJpdsKvri5cL5OjLEJAE4/MyEgAdl29oewlk7neZshG+71YNW8w9WwiHBmQE/brzNxNBHeWBcXCFpv5bLeblkIq30HNkNjYpBdWelJpIbfNf1gC84YxkGPyr9vLTbRCHFT4Rbd6ZRMvdk1IodyBobB0XWos1lhXKwCpQRSIV+CkKAoHb0G/O3xqJhrk9LjiM86xk6/Av17V6qB2sLiyQqxtWpyiuGS16oAskXHdpxS8MIIHA2/XR87JWcHqjN1j6Dz7dYAxNCpvZYQlHWwJp8Tb2WQ=
+  app: sav-info
+  on:
+    repo: Collin9726/sav_info
+    all_branches: true
+  skip_cleanup: 'true'
+  run:
+  - "python manage.py makemigrations"
+  - "python manage.py migrate"
